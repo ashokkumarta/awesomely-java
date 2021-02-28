@@ -1,19 +1,33 @@
-public sealed interface Pet {
-
-    final Random random = new Random();
-    
-    default Pet myLuckyPet() {
-        if(random.nextInt(2) == 0) {
-            return new Cat();
+class WithoutBinding {
+    public int getSizeOfString(Object o) {
+        if (o instanceof String) {
+            String s = (String) o;
+            return s.length();
+        } else {
+            return 1;
         }
-        return new Dog();
     }
 }
 
-final class Cat implements Pet {
-
+class WithBinding {
+        public int getSizeOfString(Object o) {
+        if (o instanceof String s) {
+            return s.length();
+        } else {
+            return 1;
+        }
+    }
 }
 
-final class Dog implements Pet {
+public class Main {
 
+    public static void main(String[] args) {
+
+        WithoutBinding test1 = new WithoutBinding();
+        WithBinding test2 = new WithBinding();
+
+        test1.getSizeOfString("Hello");
+        test2.getSizeOfString("Hello");
+
+    }
 }
